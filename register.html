@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/w3css.css">
+    <link rel="stylesheet" href="styles/w3ambertheme.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <title>TODO MANAGER</title>
+</head>
+<body style="width:100vw; height:100vh">
+<div class="w3-container w3-theme-l2" >
+
+
+<div class="w3-row">
+    <div class="logoimg w3-col m6 w3-container w3-padding-large w3-hide-small">
+        <img class="w3-margin-top" src="./images/todo.png" alt="">
+
+    </div>
+    <div class="w3-col m6 w3-container w3-padding-large">
+        <form  class="w3-container w3-padding-large w3-center w3-round-large w3-theme-l3" id="form">
+            <div class="w3-panel">
+                <img src="./images/todo.png" alt="logo" width="70px">
+            <h2><b>TODO MANAGER</b> </h2>
+            <p>Enter your details below to register.</p>
+            <input class="w3-input w3-round-large w3-block w3-theme-l5" type="text" id="fname" name="fname" placeholder="Enter your first name." required>
+            <br>
+            <input class="w3-input w3-round-large w3-block w3-theme-l5" type="text" id="lname" name="lname" placeholder="Enter your last name." required>
+            <br>
+            <input class="w3-input w3-round-large w3-block w3-theme-l5" type="number" id="phone" name="phone" placeholder="Enter your phone no." required>
+            <br>
+            <input class="w3-input w3-round-large w3-block w3-theme-l5" type="email" id="email" name="email" placeholder="Enter your email" required>
+            <br>
+            <input class="w3-input w3-round-large w3-block w3-theme-l5" type="password" id="password" name="password" placeholder="Enter Password" required>
+            <br>
+            <button type="submit" id="submitbtn" class="w3-button w3-block w3-theme-d1 w3-round-large">Register</button>
+            <br>
+    
+            <input onclick="return getUsers()" class="w3-input w3-amber w3-round-large w3-block w3-theme-d1"  type="button" id="registerbtn" value="Get Users" style="cursor: pointer;">
+    <div class="bottom w3-margin-top">
+        <a class="w3-left" href="index.html"><b>Back</b> </a>
+    </div>
+    
+            </div>
+            
+    
+        </form>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<script src="./js/w3js.js"></script>
+
+<script >
+let url = "http://localhost:3000/register";
+
+let url1 = "https://jsonplaceholder.typicode.com/users";
+
+let usersurl = "http://localhost:3000/users";
+
+const form = document.querySelector("#form");
+const submitBtn = document.querySelector('#submitbtn')
+const ufname = document.getElementById("fname").value;
+const ulname = document.querySelector("#lname").value
+const uphone = document.querySelector("#phone").value
+const uemail = document.querySelector("#email").value
+const upassword = document.querySelector("#password").value
+
+// console.log(ufname);
+//         console.log(ulname);
+//         console.log(uphone);
+//         console.log(uemail);
+//         console.log(upassword);
+
+// console.log(form);
+// console.log(submitBtn);
+
+submitBtn.addEventListener('click', registerUser)
+
+    async function registerUser(e) {
+            e.preventDefault();
+
+           console.log("submitted");
+
+//            let formData = new FormData();
+
+//            formData.append('firstname', "Collins");
+//            formData.append('lastname', document.querySelector("#lname").value)
+//            formData.append('phone', document.querySelector("#phone").value)
+//            formData.append('email', document.querySelector("#email").value)
+//            formData.append('password', document.querySelector("#password").value)
+
+// console.log(formData);
+
+const formData1 = {
+    "firstname": document.querySelector("#fname").value,
+    "lastname": document.querySelector("#lname").value,
+    "phone": document.querySelector("#phone").value,
+    "email": document.querySelector("#email").value,
+    "password": document.querySelector("#password").value
+
+}
+
+console.log(formData1);
+
+
+const formData2 = JSON.stringify(formData1);
+
+console.log(formData2);
+
+           let response = await fetch(url, {method: "POST", body: formData2, headers: {'Content-Type': 'application/json'}})
+           
+        //    .then(res => res.json()).then(data => console.log(data))
+
+            console.log(response);
+            
+
+}
+
+
+
+//Get users handler
+        function getUsers() {
+            //e.preventDefault();
+
+           alert("submitted");
+
+            fetch(usersurl)
+            .then(res => res.json())
+            .then(data => console.log(data))
+
+            return false;
+        }
+    </script>
+</script>
+
+</body>
+</html>
